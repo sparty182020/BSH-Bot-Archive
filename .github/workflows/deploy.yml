@@ -1,0 +1,24 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+  
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: 139.162.254.214
+          username: root
+          password: uncontrolableD3v75%
+          port: 22
+          script: |
+            cd /BSH-Bot/BSH-Bot
+            git pull
+            npm up
+            pm2 reload bot
